@@ -1,0 +1,25 @@
+services:
+  sonar:
+    image: sonarqube:lts-community
+    container_name: sonarqube
+    restart: unless-stopped
+    ports:
+      - '9000:9000'
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: produtos
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
